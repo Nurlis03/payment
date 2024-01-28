@@ -1,20 +1,25 @@
 package com.payment.service;
 
+import com.payment.dto.ClientRequestDTO;
 import com.payment.entity.Client;
 import com.payment.repository.ClientRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class ClientService {
-    @Autowired
-    private ClientRepository clientRepository;
+import java.util.List;
 
-    public Client createClient(Client client) {
-        if (client.getName() == null) {
-            throw new IllegalArgumentException("Client name cannot be null");
-        }
+@Service
+@AllArgsConstructor
+public class ClientService {
+    private final ClientRepository clientRepository;
+    public List<Client> getAllCliens() {
+        return clientRepository.findAll();
+    }
+    public Client createClient(ClientRequestDTO clientRequestDto) {
+        Client client = Client.builder()
+                              .name(clientRequestDto.getName())
+                              .build();
         return clientRepository.save(client);
     }
-
 }

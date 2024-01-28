@@ -1,5 +1,6 @@
 package com.payment.strategies.context;
 
+import com.payment.entity.Card;
 import com.payment.strategies.PaymentProcessingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +16,8 @@ public class PaymentProcessingContext {
         this.strategyMap = strategyMap;
     }
 
-    public PaymentProcessingStrategy getStrategy(String paymentSystem) {
-        return strategyMap.get(paymentSystem);
+    public PaymentProcessingStrategy getStrategy(Card card) {
+        return strategyMap.get(card.getPaymentSystem().getName());
     }
 }
 
